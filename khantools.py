@@ -96,11 +96,14 @@ def rm_outliers_threshold (dataframe, columns, threshold,upper=True,lower=True):
     Byt default, function will remove threshold% off the upper and lower ends of the column. 
     To keep outliers in the upper or lower end, change default upper or lower to False'''
     outliers_list = []
-    lower_thresh = dataframe[col].quantile(threshold)
-    upper_thresh= dataframe[col].quantile(1 - threshold)
+    
     for col in columns:
+        lower_thresh = dataframe[col].quantile(threshold)
+        upper_thresh= dataframe[col].quantile(1 - threshold)
+
         upper_indices = list(dataframe[dataframe[col] >= upper_thresh].index)
         lower_indices = list(dataframe[dataframe[col] <= lower_thresh].index)
+        
         if upper:
             outliers_list = outliers_list + upper_indices
         if lower:
